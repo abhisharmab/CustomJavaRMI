@@ -6,41 +6,54 @@ package abhi.ds;
  * */
 
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.OutputStream;
-import java.net.ConnectException;
-import java.net.InetAddress;
 import java.net.Socket;
-import java.net.UnknownHostException;
 
 public class HelperUtility {
 	
-	public final static long WORKER_HEALTH_CHECK_PERIOD = 5000;
-	public final static long HB_THRESHOLD = 4000; 
-	public final static long HB_SEND_DURATION = 2000;
 
-	
-	public static void sendSignal(String ipAddress, int portNumber, Object object) throws ConnectException
-	{
+//Send an object over the Wire	
+public static void sendSignal(Socket socket, Object object) throws RuntimeException
+{
+	    if (socket == null) {
+	        throw new RuntimeException("Invalid Socket.");
+	      }
+	      ObjectOutputStream objOut = null;
+	      try 
+	      {
+	    	  objOut = new ObjectOutputStream(socket.getOutputStream());
+	    	  objOut.writeObject(objOut);
+	      } 
+	      catch (IOException e) 
+	      {
+	        e.printStackTrace();
+	      }
+}
 
-		try
-		{
-			Socket s = new Socket(ipAddress, portNumber);
-			ObjectOutputStream out = new ObjectOutputStream(s.getOutputStream());
-			out.writeObject(object);
-			out.close();
-			s.close();
-		}
-		catch(ConnectException e)
-		{
-			throw e;
-		}
-		catch (IOException e)
-		{
-			//TODO Fix this code
-			e.printStackTrace();
-		}
+//Receive and Object over the Wire
+public static Object receiveSignal(Socket socket) throws RuntimeException{
+    if (socket == null) {
+      throw new RuntimeException("Invalid Socket.");
+    }
+    ObjectInputStream objIn = null;
+    Object signal = null;
+    try 
+    {
+    	objIn = new ObjectInputStream(socket.getInputStream());
+    	signal = objIn.readObject();
+    } 
+    catch (IOException e) 
+    {
+      e.printStackTrace();
+    } 
+    catch (ClassNotFoundException e) 
+    {
+      e.printStackTrace();
+    }
 
-	}
+    return signal;
+ }
+
 
 }
