@@ -47,8 +47,8 @@ public class ProxyDispatcher implements Runnable {
 					
 					//Start NEW THREAD FOR RequestHandler and Go Back to Listening to Requests
 					//Cater to requests in an unblocking way.
-					Thread dispatcherRequestHandler = new Thread(new DispatcherRequestHandler(requestSocket,this));
-					dispatcherRequestHandler.start();
+					Thread proxyDispatcherRequestHandler = new Thread(new ProxyDispatcherRequestHandler(requestSocket,this));
+					proxyDispatcherRequestHandler.start();
 					
 				}
 			}
