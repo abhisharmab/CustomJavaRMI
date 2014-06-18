@@ -11,7 +11,7 @@ import java.net.*;
  * This means multiple instance of the client will be able to ask for requests without being blocked.
  *
  */
-public class ProxyDispatcherRequestHandler implements Runnable { 
+public class ProxyDispatcherRequestHandler implements Runnable {   
 
 	//Properties 
 	
