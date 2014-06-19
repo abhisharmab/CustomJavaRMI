@@ -21,8 +21,8 @@ public class RMIRegistry implements Runnable {
 	public Map<String, RemoteRef> registryMap = null; 
 	
 
-	public int registryPortNumber;
-	public String registryIpAddress;
+	private int registryPortNumber;
+	private String registryIpAddress;
 	
 
 	public RMIRegistry( int portNumber)
@@ -76,15 +76,7 @@ public class RMIRegistry implements Runnable {
 	    }
 	}
 	
-	
 
-	public Map<String, RemoteRef> getRegistryMap() {
-		return registryMap;
-	}
-
-	public void setRegistryMap(Map<String, RemoteRef> registryMap) {
-		this.registryMap = registryMap;
-	}
 
 	public int getRegistryPortNumber() {
 		return registryPortNumber;
@@ -107,8 +99,8 @@ public class RMIRegistry implements Runnable {
 	{
 		    if (args.length != 1) 
 		    {
-		   //  ascasc System.err.println("Usage: RMIRegistry <registry_ip> <registry_port>");
-		    	   System.err.println("Usage: RMIRegistry <registry_port>");
+		   
+		      System.err.println("Usage: RMIRegistry <registry_port>");
 		      return;
 		    }
 		    
