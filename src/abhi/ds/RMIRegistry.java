@@ -1,12 +1,18 @@
 package abhi.ds;
 
 import java.io.IOException;
+import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.UnknownHostException;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader.Array;
+/**
+ * @author abhisheksharma, dkrew0213
+ */
 public class RMIRegistry implements Runnable {
 
 	//The registry entries that maintains a list of all the RemoteReference of the Distributed Objects in the System.
@@ -14,15 +20,26 @@ public class RMIRegistry implements Runnable {
 	//It needs to be thread safe.
 	public Map<String, RemoteRef> registryMap = null; 
 	
+
 	public int registryPortNumber;
 	public String registryIpAddress;
 	
 
-	public RMIRegistry(String ipAddress, int portNumber)
+	public RMIRegistry( int portNumber)
 	{
 		this.registryMap = Collections.synchronizedMap(new HashMap<String, RemoteRef>());
-		this.registryIpAddress = ipAddress;
+		try {
+			this.registryIpAddress = InetAddress.getLocalHost().toString();
+		} catch (UnknownHostException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		this.registryPortNumber = portNumber;
+		
+		System.out.println("RMI Registry Started");
+		System.out.println("Registry IP : " + registryIpAddress);
+		System.out.println("Registry Port : " + registryPortNumber);
+		
 	}
 	
 	@Override
@@ -60,14 +77,42 @@ public class RMIRegistry implements Runnable {
 	}
 	
 	
+
+	public Map<String, RemoteRef> getRegistryMap() {
+		return registryMap;
+	}
+
+	public void setRegistryMap(Map<String, RemoteRef> registryMap) {
+		this.registryMap = registryMap;
+	}
+
+	public int getRegistryPortNumber() {
+		return registryPortNumber;
+	}
+
+	public void setRegistryPortNumber(int registryPortNumber) {
+		this.registryPortNumber = registryPortNumber;
+	}
+
+	public String getRegistryIpAddress() {
+		return registryIpAddress;
+	}
+
+	public void setRegistryIpAddress(String registryIpAddress) {
+		this.registryIpAddress = registryIpAddress;
+	}
+
+	
 	public static void main(String[] args)
 	{
-		    if (args.length != 2) 
+		    if (args.length != 1) 
 		    {
-		      System.err.println("Usage: RMIRegistry <registry_ip> <registry_port>");
+		   //   System.err.println("Usage: RMIRegistry <registry_ip> <registry_port>");
+		    	   System.err.println("Usage: RMIRegistry <registry_port>");
 		      return;
 		    }
-		   Thread RMIRegistryThread =  new Thread(new RMIRegistry(args[0].toString(), Integer.parseInt(args[1])));
+		    
+		   Thread RMIRegistryThread =  new Thread(new RMIRegistry(Integer.parseInt(args[0])));
 		   RMIRegistryThread.start();
 	}
 

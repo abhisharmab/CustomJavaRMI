@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.net.*;
 
 /**
- * @author abhisheksharma
+ * @author abhisheksharma, dkrew0213
  * Following the guidelines the ProxyDispatcher runs the server-sider. 
  * This guy is listening to remote method firing requests from the clients and actually handles the execution of the method.
  * In some ways this is the server that has knowledge of the actually IMPLEMENT of a particular function.
@@ -29,48 +29,52 @@ public class ProxyDispatcher implements Runnable {
 		
 	}
 	
-	
+	// Commenting some stuff out to test the connection with the 
 	@Override
 	public void run() {
 		// TODO Auto-generated method stub
 		
-		ServerSocket dispatcherListener = null;
-		if(this.dispatcherPortNumber > 0)
-		{
-			try
-			{
-				dispatcherListener = new ServerSocket(this.dispatcherPortNumber);
-
-				while(true)
-				{
-					Socket requestSocket = dispatcherListener.accept();
-					
-					//Start NEW THREAD FOR RequestHandler and Go Back to Listening to Requests
-					//Cater to requests in an unblocking way.
-					Thread proxyDispatcherRequestHandler = new Thread(new ProxyDispatcherRequestHandler(requestSocket,this));
-					proxyDispatcherRequestHandler.start();
-					
-				}
-			}
-			catch(IOException e)
-			{
-				System.err.print(e.getStackTrace().toString());
-			}
-			
-			finally
-			{
-				if(dispatcherListener != null)
-				{
-					try {
-						dispatcherListener.close();
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}
-			}
-
-		}
+		// open connection to the RMI registry
+		// register object close the connection
+		
+//		
+//		ServerSocket dispatcherListener = null;
+//		if(this.dispatcherPortNumber > 0)
+//		{
+//			try
+//			{
+//				dispatcherListener = new ServerSocket(this.dispatcherPortNumber);
+//
+//				while(true)
+//				{
+//					Socket requestSocket = dispatcherListener.accept();
+//					
+//					//Start NEW THREAD FOR RequestHandler and Go Back to Listening to Requests
+//					//Cater to requests in an unblocking way.
+//					Thread proxyDispatcherRequestHandler = new Thread(new ProxyDispatcherRequestHandler(requestSocket,this));
+//					proxyDispatcherRequestHandler.start();
+//					
+//				}
+//			}
+//			catch(IOException e)
+//			{
+//				System.err.print(e.getStackTrace().toString());
+//			}
+//			
+//			finally
+//			{
+//				if(dispatcherListener != null)
+//				{
+//					try {
+//						dispatcherListener.close();
+//					} catch (IOException e) {
+//						// TODO Auto-generated catch block
+//						e.printStackTrace();
+//					}
+//				}
+//			}
+//
+//		}
 	}
 	
 
