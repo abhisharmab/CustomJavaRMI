@@ -15,15 +15,16 @@ import java.net.*;
  */
 public class ProxyDispatcher implements Runnable {
 	
-	//Properties the Dispatacher Needs
-	public static String rmiRegistryIp = "";
+	//Properties the Dispatcher Needs
+	public String rmiRegistryIp = "";
 
 	// the port of the registry server
-	public static int rmiRegistryPort = 0;
+	public int rmiRegistryPort = 0;
 	
-	private String dispatcherIpAdress; 
-	private int dispatcherPortNumber;  
+	public String dispatcherIpAdress; 
+	public int dispatcherPortNumber;  
 	
+
 	public ProxyDispatcher()
 	{
 		
@@ -76,24 +77,43 @@ public class ProxyDispatcher implements Runnable {
 //
 //		}
 	}
+		
+		public static void main(String[] args) {
+			if (args.length != 3) {
+				System.err.println("Usage: Dispatcher <dispatcher_port> <registry_ip> <registery_port>");
+				return;
+			}
+
+			ProxyDispatcher proxyDispatcher = new ProxyDispatcher();
+			proxyDispatcher.setDispatcherPortNumber(Integer.parseInt(args[0]));
+			proxyDispatcher.rmiRegistryIp = args[1];
+			proxyDispatcher.rmiRegistryPort = Integer.parseInt(args[2]);
+
+			// start the listening thread
+			new Thread(proxyDispatcher).start();
+
+		}
+
+		public int getDispatcherPortNumber()
+		{
+			  return this.dispatcherPortNumber;
+		}
+		  
+		public String getDispatcherIpAddress()
+		{
+			 return this.dispatcherIpAdress;
+		}
+		public void setDispatcherPortNumber(int portNumber)
+		{
+			   this.dispatcherPortNumber = portNumber ;
+		}
+		  
+		public void setDispatcherIpAddress(String ipAddress)
+		{
+			  this.dispatcherIpAdress = ipAddress;
+		}
+
+}
 	
 
-	public int getDispatcherPortNumber()
-	{
-		  return this.dispatcherPortNumber;
-	}
-	  
-	public String getDispatcherIpAddress()
-	{
-		 return this.dispatcherIpAdress;
-	}
-	public void setDispatcherPortNumber(int portNumber)
-	{
-		   this.dispatcherPortNumber = portNumber ;
-	}
-	  
-	public void setDispatcherIpAddress(String ipAddress)
-	{
-		  this.dispatcherIpAdress = ipAddress;
-	}
-}
+
