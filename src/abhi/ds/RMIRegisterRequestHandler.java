@@ -34,7 +34,7 @@ public class RMIRegisterRequestHandler implements Runnable {
 		
 		//@Doug: So we need those 2 kinds of Signals
 
-			while (true) {
+			while (true) { //Douglas why do we need this.
 				
 				// Make grep take longer so that we don't require extremely large files for interesting results
 				try {

@@ -14,33 +14,40 @@ import java.util.ArrayList;
 public class RemoteRef implements ISignal{
 	
 	private static final long serialVersionUID = 1L;
+	
 	private String ip_Address;
 	private Integer port;
-	private String interface_Name;
+	 //private String interface_Name; // We don't need this. because I added the class [] param.
 	private String class_Name;
+	private Class[] implementedInterfaces = null; //I need this becuase its an input parameter for the Proxy. 
 	
+	public Class[] getInterfaces() {
+		return implementedInterfaces;
+	}
 	
-	public String getInterface_Name() {
-		return interface_Name;
+	public void setInterfaces(Class[] implementedInterfaces) {
+		this.implementedInterfaces = implementedInterfaces;
 	}
-	public void setInterface_Name(String interface_Name) {
-		this.interface_Name = interface_Name;
-	}
+	
 	public String getClass_Name() {
 		return class_Name;
 	}
+	
 	public void setClass_Name(String class_Name) {
 		this.class_Name = class_Name;
 	}
+	
 	public String getIp_Address() {
 		return ip_Address;
 	}
+	
 	public void setIp_Address(String ip_Address) {
 		this.ip_Address = ip_Address;
 	}
 	public Integer getPort() {
 		return port;
 	}
+	
 	public void setPort(Integer port) {
 		this.port = port ;
 	}
