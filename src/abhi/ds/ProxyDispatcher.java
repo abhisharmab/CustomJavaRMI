@@ -35,7 +35,7 @@ public class ProxyDispatcher implements Runnable {
 		// TODO Auto-generated method stub
 		
 		// open connection to the RMI registry
-		// register object close the connection
+		// register object close the connectionsvs
 		
 //		
 //		ServerSocket dispatcherListener = null;

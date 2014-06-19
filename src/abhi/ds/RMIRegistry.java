@@ -107,7 +107,7 @@ public class RMIRegistry implements Runnable {
 	{
 		    if (args.length != 1) 
 		    {
-		   //   System.err.println("Usage: RMIRegistry <registry_ip> <registry_port>");
+		   //  ascasc System.err.println("Usage: RMIRegistry <registry_ip> <registry_port>");
 		    	   System.err.println("Usage: RMIRegistry <registry_port>");
 		      return;
 		    }

@@ -23,7 +23,7 @@ public class RMIRegisterRequestHandler implements Runnable {
 		this.rmiRegistry = registry;
 	}
 	/* (non-Javadoc)
-	 * @see java.lang.Runnable#run()
+	 * @see java.lang.Runnable#run()ww
 	 */
 	@Override
 	public void run() {

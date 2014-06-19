@@ -42,7 +42,7 @@ public class RemoteRef implements ISignal{
 		return port;
 	}
 	public void setPort(Integer port) {
-		this.port = port;
+		this.port = port ;
 	}
 
 
