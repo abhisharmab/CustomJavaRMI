@@ -1,0 +1,43 @@
+Douglas:
+
+Signals:
+Now we have a common Signal Interface. We need differnet kinds of Signal. 
+(Basically these are just classes that pack in the necessary information)
+Examples:
+# RegisterObjectSignal(This will pack in the remote reference inside it and the ip and port)
+# RequestRemoteObjectFromRegistrySignal (This is similar to the Lookup operation. when client asks registery we will return this)
+# RemoteObjectRegisteredACKSignal (Registry should acknowledge that it has registered the RemoteRef we sent to it)
+# InvokeMethodSignal
+# InvocationResponseSignal
+ etc.
+
+
+RMIRegistry
+Note:Currently we have this class done and its started a server socket ready to accept request.
+Doesn't seem like we need to add more code here.
+
+
+RMIRegistryHandler (Handler handles all the requests that come to the RMIRegistry) 
+1. Need to handle RegisterObjectSignal (similar to BIND, mentioned in Signal above). Dispatcher will be calling this method.
+2. Need to handle RequestRemoteObjectSignal
+3. Need to handle SendingtheACKSignaltoDispatcher
+
+
+ProxyDispatcher
+1.Need to add code to create an RemoteRef of AddandSubtract and Send to RMI (basically register it with RMI) 
+2. Other things a dispatcher must do. (Can't think now)
+3. A Map to maintain all the actual Objects on the server side 
+
+
+ProxyDispatcherHandler
+1..Need to add code to handler InvokeMethodSignal via Reflections and actually invoke message
+2.Similarly send responsesignal etc. 
+
+
+
+Abhi:
+Client Class 
+1. A test class to call upon the methods we need.
+
+StubCompiler   
+1. A stubcompiler that will basically create the stub at runtime. 
