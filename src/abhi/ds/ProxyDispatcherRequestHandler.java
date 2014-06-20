@@ -73,7 +73,16 @@ public class ProxyDispatcherRequestHandler implements Runnable {
 				InvokeMethodSignal imSignal = (InvokeMethodSignal) baseSignal;
 				
 				Object actualObject = this.proxyDispatcher.getAppropriateObject(imSignal.getClassName());
+				Object returnValue = null;
 				
+				if(actualObject!=null)
+				{
+					
+				}
+				else
+				{
+				
+				}
 				break;
 			
 				
