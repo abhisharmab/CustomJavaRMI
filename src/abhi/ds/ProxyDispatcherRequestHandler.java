@@ -5,7 +5,10 @@ package abhi.ds;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.*;
+import java.lang.reflect.*;
+
 
 /**
  * @author abhisheksharma
@@ -77,11 +80,73 @@ public class ProxyDispatcherRequestHandler implements Runnable {
 				
 				if(actualObject!=null)
 				{
+					try {
+						Class<?> actualClass = Class.forName(imSignal.getClassName());
+						
+				        Class<?>[] argstype = new Class[imSignal.getArguments().length];
+				        for (int i = 0; i < imSignal.getArguments().length; i++) {
+				          argstype[i] =imSignal.getArguments()[i].getClass();
+				        }
+				        
+				        Method requestedMethod = actualClass.getMethod(imSignal.getMethodName(), argstype);
+				        System.out.println("Invoking the requested method " + actualClass.getName() + "."
+				                + requestedMethod.getName() + "() with " + imSignal.getArguments().length + " arguments.");
+				        
+				        try 
+				        {
+							returnValue = requestedMethod.invoke(actualObject, imSignal.getArguments());
+						} 
+				        catch (Exception e)
+						{
+				        	try 
+				        	{
+								new ObjectOutputStream(this.requestSocket.getOutputStream()).writeObject(new InvocationResponseMessage(true,"Method Threw an Exception"));
+							} 
+				        	catch (IOException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+						}
+						
+					} catch (ClassNotFoundException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+						 try 
+						 {
+							new ObjectOutputStream(this.requestSocket.getOutputStream()).writeObject(new InvocationResponseMessage(true,"Invalid ClassName"));
+						 } 
+						 catch (IOException e1) 
+						 {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+					} catch (NoSuchMethodException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (SecurityException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 					
+					 try {
+						 //Everything is SuccessFUL SEND back the response
+					      System.out.println("Send back the result by an InvocationResponseMessage.\n");
+					      new ObjectOutputStream(this.requestSocket.getOutputStream()).writeObject(new InvocationResponseMessage(returnValue));
+					    } catch (IOException e) {
+					      e.printStackTrace();
+					    }
 				}
 				else
 				{
-				
+					try 
+					{
+						new ObjectOutputStream(this.requestSocket.getOutputStream()).writeObject(new InvocationResponseMessage(true,"Object Not Present Remotely"));
+					} 
+					catch (IOException e) 
+					{
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				}
 				break;
 			

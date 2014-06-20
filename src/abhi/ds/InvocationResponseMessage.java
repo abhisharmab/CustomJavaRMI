@@ -18,21 +18,23 @@ public class InvocationResponseMessage extends BaseSignal {
 	private boolean isException;
 	private String exceptionMessage;
 
-	//Valid Reponse
-	public void InvocationRepsonseMessage(Object object)
-	{
-		this.returnObject = object;
-		this.signalType = SignalType.InvocationResponse;
-	}
-	
-	//Exception Occured..Then send the Exception Message
-	public void InvocationRepsonseMessage(Boolean isException, String message)
-	{
+	//Exception Occurred..Then send the Exception Message
+	public InvocationResponseMessage(boolean exception, String message) {
+		// TODO Auto-generated constructor stub
 		this.setException(isException);
 		this.setExceptionMessage(message);
 		this.signalType = SignalType.InvocationResponse;
 	}
+
+	//Valid Response
+	public InvocationResponseMessage(Object object)
+	{
+		this.returnObject = object;
+		this.isException = false;
+		this.signalType = SignalType.InvocationResponse;
+	}
 	
+
 	public Object getReturnObject()
 	{
 		return this.returnObject;
