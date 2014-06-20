@@ -87,9 +87,5 @@ public class InvokeMethodSignal extends BaseSignal {
 	public void setArguments(Object[] arguments) {
 		this.arguments = arguments;
 	}
-	
-
-	
-	
 
 }

@@ -10,7 +10,7 @@ package abhi.ds;
 public class InvocationResponseMessage extends BaseSignal {
 	
 	/**
-	 * 
+	 *  
 	 */
 	private static final long serialVersionUID = 1L;
 	
