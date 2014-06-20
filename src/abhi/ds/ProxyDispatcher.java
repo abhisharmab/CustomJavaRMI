@@ -5,15 +5,21 @@ package abhi.ds;
 
 import java.io.IOException;
 import java.net.*;
+import java.util.Collections;
+import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * @author abhisheksharma, dkrew0213
- * Following the guidelines the ProxyDispatcher runs the server-sider. 
+ * Following the guidelines the ProxyDispatcher runs the server-side. 
  * This guy is listening to remote method firing requests from the clients and actually handles the execution of the method.
  * In some ways this is the server that has knowledge of the actually IMPLEMENT of a particular function.
  * It will execute the function and return the result.
  */
 public class ProxyDispatcher implements Runnable {
+	
+	//Map on the server side of the Actual Objects that need to be there
+	private Map<String, Object> actualObjects;
 	
 	//Properties the Dispatcher Needs
 	public String rmiRegistryIp = "";
@@ -27,7 +33,7 @@ public class ProxyDispatcher implements Runnable {
 
 	public ProxyDispatcher()
 	{
-		
+		this.actualObjects = Collections.synchronizedMap(new TreeMap<String, Object>());
 	}
 	
 	// Commenting some stuff out to test the connection with the 
@@ -111,6 +117,20 @@ public class ProxyDispatcher implements Runnable {
 		public void setDispatcherIpAddress(String ipAddress)
 		{
 			  this.dispatcherIpAdress = ipAddress;
+		}
+		
+		public Object getAppropriateObject(String className)
+		{
+			if(className ==null || className.isEmpty())
+			{
+				return null;
+				
+			}
+			
+			else
+			{
+				return this.actualObjects.get(className);
+			}
 		}
 
 }

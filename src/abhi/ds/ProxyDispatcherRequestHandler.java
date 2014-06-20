@@ -3,6 +3,8 @@
  */
 package abhi.ds;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.net.*;
 
 /**
@@ -35,11 +37,50 @@ public class ProxyDispatcherRequestHandler implements Runnable {
 		//People will invoke using this i.e. this guy will receive the Invocation Requests 
 		//Actually call the method and 
 		//Then send appropriate exception or response. 
+		if(this.requestSocket == null){
+			try {
+				throw new Exception("Socket is invalid. Problem occured");
+			} catch (Exception e) {
+				e.printStackTrace();
+			}	
+		}
+			
+		BaseSignal signal = null;
 		
-		//@Doug: The STUB on the CLIENT SIDE WILL be WAITING UNTILT HIS GUYS RETURNS>
+		try 
+		{
+			ObjectInputStream objStream = new ObjectInputStream(this.requestSocket.getInputStream());
+			signal = (BaseSignal) objStream.readObject();
+			SignalHandler(signal);
+			objStream.close();
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void SignalHandler(BaseSignal baseSignal)
+	{
+		switch(baseSignal.signalType)
+		{
 		
-		//So we need 2 types of SIGNALS here which will be implement the ISignal Interface.
-
+			case Invoke:
+				
+				InvokeMethodSignal imSignal = (InvokeMethodSignal) baseSignal;
+				
+				Object actualObject = this.proxyDispatcher.getAppropriateObject(imSignal.getClassName());
+				
+				break;
+			
+				
+			default:
+				break;
+		
+		}
 	}
 
 }

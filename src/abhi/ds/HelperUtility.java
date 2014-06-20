@@ -23,7 +23,7 @@ public static void sendSignal(Socket socket, Object object) throws RuntimeExcept
 	      try 
 	      {
 	    	  objOut = new ObjectOutputStream(socket.getOutputStream());
-	    	  objOut.writeObject(objOut);
+	    	  objOut.writeObject(object);
 	      } 
 	      catch (IOException e) 
 	      {
