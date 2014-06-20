@@ -38,44 +38,44 @@ public class ProxyDispatcher implements Runnable {
 		// open connection to the RMI registry
 		// register object close the connectionsvs
 		
-//		
-//		ServerSocket dispatcherListener = null;
-//		if(this.dispatcherPortNumber > 0)
-//		{
-//			try
-//			{
-//				dispatcherListener = new ServerSocket(this.dispatcherPortNumber);
-//
-//				while(true)
-//				{
-//					Socket requestSocket = dispatcherListener.accept();
-//					
-//					//Start NEW THREAD FOR RequestHandler and Go Back to Listening to Requests
-//					//Cater to requests in an unblocking way.
-//					Thread proxyDispatcherRequestHandler = new Thread(new ProxyDispatcherRequestHandler(requestSocket,this));
-//					proxyDispatcherRequestHandler.start();
-//					
-//				}
-//			}
-//			catch(IOException e)
-//			{
-//				System.err.print(e.getStackTrace().toString());
-//			}
-//			
-//			finally
-//			{
-//				if(dispatcherListener != null)
-//				{
-//					try {
-//						dispatcherListener.close();
-//					} catch (IOException e) {
-//						// TODO Auto-generated catch block
-//						e.printStackTrace();
-//					}
-//				}
-//			}
-//
-//		}
+		
+		ServerSocket dispatcherListener = null;
+		if(this.dispatcherPortNumber > 0)
+		{
+			try
+			{
+				dispatcherListener = new ServerSocket(this.dispatcherPortNumber);
+
+				while(true)
+				{
+					Socket requestSocket = dispatcherListener.accept();
+					
+					//Start NEW THREAD FOR RequestHandler and Go Back to Listening to Requests
+					//Cater to requests in an unblocking way.
+					Thread proxyDispatcherRequestHandler = new Thread(new ProxyDispatcherRequestHandler(requestSocket,this));
+					proxyDispatcherRequestHandler.start();
+					
+				}
+			}
+			catch(IOException e)
+			{
+				System.err.print(e.getStackTrace().toString());
+			}
+			
+			finally
+			{
+				if(dispatcherListener != null)
+				{
+					try {
+						dispatcherListener.close();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			}
+
+		}
 	}
 		
 		public static void main(String[] args) {
