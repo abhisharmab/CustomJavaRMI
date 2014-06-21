@@ -19,8 +19,19 @@ public class SampleClient {
 		
 		String registryIpAddr = args[0].trim();
 		int registryPort = Integer.parseInt(args[0].trim());
-		
-		//giveStub()
+
+		IAddandSubtract addSubtractObject;
+		try 
+		{
+			addSubtractObject = (IAddandSubtract) ProxyStubCompiler.giveStub("IAddandSubtract", IAddandSubtract.class, registryIpAddr, registryPort);
+			int sum = addSubtractObject.Add(8, 9);
+		}
+		catch (Exception e) 
+		{
+			// TODO Auto-generated catch block
+			System.err.println(e.getMessage());
+		}
+
 	}
 
 }
