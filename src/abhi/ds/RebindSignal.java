@@ -21,6 +21,13 @@ public class RebindSignal extends BaseSignal{
 	public RebindSignal(){
 		setSignalType(SignalType.Rebind);
 	}
+	
+	public RebindSignal(RemoteRef ref){
+		setSignalType(SignalType.Rebind);
+		setRemote_Ref(ref);
+	}
+	
+	
 
 	public RemoteRef getRemote_Ref() {
 		return remote_Ref;

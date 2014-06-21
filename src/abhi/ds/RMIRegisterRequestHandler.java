@@ -67,7 +67,6 @@ public class RMIRegisterRequestHandler implements Runnable {
 				
 		}
 		
-		System.out.println("Exiting the thread." + this.toString());
 		
 
 				
@@ -77,16 +76,22 @@ public class RMIRegisterRequestHandler implements Runnable {
 	private void bind(BindSignal bindSignal){
 		RemoteRef remote_Ref = bindSignal.getRemote_Ref();
 		
-		if(! this.rmiRegistry.getRegistryMap().containsKey(remote_Ref.getRegister_Name())){
-			this.rmiRegistry.getRegistryMap().put(remote_Ref.getRegister_Name(), remote_Ref);
-			HelperUtility.sendSignal(requestSocket, new AckSignal());
+		try {
+			if(! this.rmiRegistry.getRegistryMap().containsKey(remote_Ref.getRegister_Name())){
+				this.rmiRegistry.getRegistryMap().put(remote_Ref.getRegister_Name(), remote_Ref);
+				
+				HelperUtility.sendSignal(requestSocket, new AckSignal());
+				System.out.println("Binding Successful.");
+				System.out.println(this.rmiRegistry.getRegistryMap());
+			} else {
+				System.out.println("Failed : Register name is already in use.");
+				HelperUtility.sendSignal(requestSocket, new RemoteExceptionSignal("REBIND : Cannot bind the register name is already in use."));
+			}
+		} catch (RuntimeException | IOException e) {
 			
-			System.out.println("Binding Successful.");
-			System.out.println(this.rmiRegistry.getRegistryMap());
-		} else {
-			System.out.println("Failed : Register name is already in use.");
-			HelperUtility.sendSignal(requestSocket, new RemoteExceptionSignal("Cannot bind the register name is already in use."));
-		}
+			System.out.println("Error in the connection.");
+		} 
+	
 		
 	
 		
@@ -94,32 +99,42 @@ public class RMIRegisterRequestHandler implements Runnable {
 	private void rebind(RebindSignal rebindSignal){
 		RemoteRef remote_Ref = rebindSignal.getRemote_Ref();
 		
-		if( this.rmiRegistry.getRegistryMap().containsKey(remote_Ref.getRegister_Name())){
-			this.rmiRegistry.getRegistryMap().put(remote_Ref.getRegister_Name(), remote_Ref);
-			HelperUtility.sendSignal(requestSocket, new AckSignal());
+		try {
+			if( this.rmiRegistry.getRegistryMap().containsKey(remote_Ref.getRegister_Name())){
+				this.rmiRegistry.getRegistryMap().put(remote_Ref.getRegister_Name(), remote_Ref);
+				HelperUtility.sendSignal(requestSocket, new AckSignal());
+				System.out.println("Rebinding Successful.");
+			} else {
+				System.out.println("Failed : Register name does not exist.");
+				HelperUtility.sendSignal(requestSocket, new RemoteExceptionSignal("Cannot rebind the register name dose not exist."));
+			}
+				
+		} catch (RuntimeException | IOException e) {
 			
-			System.out.println("Rebinding Successful.");
-			System.out.println(this.rmiRegistry.getRegistryMap());
-		} else {
-			System.out.println("Failed : Register name does not exist.");
-			HelperUtility.sendSignal(requestSocket, new RemoteExceptionSignal("Cannot rebind the register name dose not exist."));
-		}
+			System.out.println("Error in the connection.");
+		} 
 		
 			
 	}
 	private void lookup(LookupSignal lookupSignal){
 		String look_up_name = lookupSignal.getLookup_Name();
 		
-		if( this.rmiRegistry.getRegistryMap().containsKey(look_up_name)){
-			System.out.println("Lookup Successful.");
-			RemoteRef remote_Ref = this.rmiRegistry.getRegistryMap().get(look_up_name);
-			HelperUtility.sendSignal(requestSocket, new AckLookupSignal(remote_Ref));
+		try {
+			if( this.rmiRegistry.getRegistryMap().containsKey(look_up_name)){
+				System.out.println("Lookup Successful.");
+				RemoteRef remote_Ref = this.rmiRegistry.getRegistryMap().get(look_up_name);
+				HelperUtility.sendSignal(requestSocket, new AckLookupSignal(remote_Ref));
+				
+				
+			} else {
+				System.out.println("Failed : Register name does not exist.");
+				HelperUtility.sendSignal(requestSocket, new RemoteExceptionSignal("There are no remote reference object to look up."));
+			}		
+		} catch (RuntimeException | IOException e) {
 			
-			
-		} else {
-			System.out.println("Failed : Register name does not exist.");
-			HelperUtility.sendSignal(requestSocket, new RemoteExceptionSignal("There are no remote reference object to look up."));
-		}
+			System.out.println("Error in the connection.");
+		} 
+	
 	}
 
 }

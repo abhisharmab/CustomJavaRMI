@@ -66,7 +66,8 @@ public class ProxyDispatcher implements Runnable {
 			}
 			catch(IOException e)
 			{
-				System.err.print(e.getStackTrace().toString());
+				System.out.println("Error occured while opening the Server Socker, please use a differenet portnumber. ");
+				
 			}
 			
 			finally
@@ -149,7 +150,6 @@ public class ProxyDispatcher implements Runnable {
 				return socket;
 			} catch (UnknownHostException e) {
 				System.out.println("UnknownHost, please recheck the Rmi Registry Ip and Port number.");
-//				e.printStackTrace();
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -168,24 +168,41 @@ public class ProxyDispatcher implements Runnable {
 
 			// Bind AddSubtract
 			if(socket != null){
-				AddandSubtract addandSubtract = new AddandSubtract();
-				RemoteRef addSubtract_ref = initialize_RemoteRef(addandSubtract);
-				getActualObjects().put(addSubtract_ref.getRegister_Name(), addandSubtract);
-				HelperUtility.sendSignal(socket, new BindSignal(addSubtract_ref));
-				Object object = HelperUtility.receiveSignal(socket);
-				
-				if( object instanceof AckSignal){
-					System.out.println("AddandSubtract binded.   1");
-				} else if (object instanceof RemoteExceptionSignal){
-					RemoteExceptionSignal exception = (RemoteExceptionSignal) object;
-					System.out.println("Binding Failed : " + exception.getExpection());
-				}
 				try {
+					AddandSubtract addandSubtract = new AddandSubtract();
+					RemoteRef addSubtract_ref = initialize_RemoteRef(addandSubtract);
+					getActualObjects().put(addSubtract_ref.getRegister_Name(), addandSubtract);
+					
+					HelperUtility.sendSignal(socket, new BindSignal(addSubtract_ref));
+					Object object = HelperUtility.receiveSignal(socket);
+					
+					
+					if( object instanceof AckSignal){
+						System.out.println("AddandSubtract binded.");
+					} else if (object instanceof RemoteExceptionSignal){
+						RemoteExceptionSignal exception = (RemoteExceptionSignal) object;
+						System.out.println("Binding Failed : " + exception.getExpection());
+						
+						if(exception.getExpection().contains(new String("REBIND"))){
+							socket.close();
+							socket = intialize_socket();
+							HelperUtility.sendSignal(socket, new RebindSignal(addSubtract_ref));
+							Object rebind_object = HelperUtility.receiveSignal(socket);
+							if( rebind_object instanceof AckSignal){
+								System.out.println("Rebind Successed.");
+							} else  if (rebind_object instanceof RemoteExceptionSignal){
+								System.out.println("Rebinding Failed : " + exception.getExpection());
+								System.out.println("No more retry.");
+							}							
+						}
+						
+					} 
 					socket.close();
-				} catch (IOException e) {
+				} catch (RuntimeException | IOException e1) {
 					// TODO Auto-generated catch block
-					e.printStackTrace();
+					e1.printStackTrace();
 				}
+				
 			}
 				
 			
