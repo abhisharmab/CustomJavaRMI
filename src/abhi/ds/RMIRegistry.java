@@ -21,6 +21,15 @@ public class RMIRegistry implements Runnable {
 	public Map<String, RemoteRef> registryMap = null; 
 	
 
+	public Map<String, RemoteRef> getRegistryMap() {
+		return registryMap;
+	}
+
+	public void setRegistryMap(Map<String, RemoteRef> registryMap) {
+		this.registryMap = registryMap;
+	}
+
+
 	private int registryPortNumber;
 	private String registryIpAddress;
 	
@@ -29,7 +38,7 @@ public class RMIRegistry implements Runnable {
 	{
 		this.registryMap = Collections.synchronizedMap(new HashMap<String, RemoteRef>());
 		try {
-			this.registryIpAddress = InetAddress.getLocalHost().toString();
+			this.registryIpAddress = InetAddress.getLocalHost().getCanonicalHostName();
 		} catch (UnknownHostException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

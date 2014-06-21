@@ -21,6 +21,8 @@ public class RemoteRef implements ISignal{
 	private String class_Name;
 	private Class[] implementedInterfaces = null; //I need this becuase its an input parameter for the Proxy. 
 	
+	private String register_Name;
+	
 	public Class[] getInterfaces() {
 		return implementedInterfaces;
 	}
@@ -50,6 +52,14 @@ public class RemoteRef implements ISignal{
 	
 	public void setPort(Integer port) {
 		this.port = port ;
+	}
+
+	public String getRegister_Name() {
+		return register_Name;
+	}
+
+	public void setRegister_Name(String register_Name) {
+		this.register_Name = register_Name;
 	}
 
 
