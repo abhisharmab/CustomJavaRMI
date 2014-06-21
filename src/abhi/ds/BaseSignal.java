@@ -21,11 +21,21 @@ public class BaseSignal implements ISignal {
 		Exception,
 		Bind, 
 		Rebind, 
-		LookUp
+		LookUp,
+		Ack_Lookup,
+		Acknowledgement
 	}
 	
 	public SignalType signalType;
 	
+	public SignalType getSignalType() {
+		return signalType;
+	}
+
+	public void setSignalType(SignalType signalType) {
+		this.signalType = signalType;
+	}
+
 	public BaseSignal()
 	{
 		
