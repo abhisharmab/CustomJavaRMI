@@ -20,7 +20,7 @@ public  class ProxyStubCompiler {
 	public static HashMap<String, Object> cachedStubObjects = new HashMap<String,Object>();
 	
 	
-	public static Object giveStub(String interfaceName,Class interfaceClass, String registryIp, int registryPort) throws Exception
+	public static Object giveStub(String interfaceName, Class<?> interfaceClass, String registryIp, int registryPort) throws Exception
 	{
 		if(cachedStubObjects.containsKey(interfaceName))
 			return cachedStubObjects.get(interfaceName);
