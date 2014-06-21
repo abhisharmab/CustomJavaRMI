@@ -14,7 +14,7 @@ public class HelperUtility {
 	
 
 //Send an object over the Wire	
-public static void sendSignal(Socket socket, Object object) throws RuntimeException
+public static void sendSignal(Socket socket, Object object) throws RuntimeException, IOException
 {
 	    if (socket == null) {
 	        throw new RuntimeException("Invalid Socket.");
@@ -28,11 +28,12 @@ public static void sendSignal(Socket socket, Object object) throws RuntimeExcept
 	      catch (IOException e) 
 	      {
 	        e.printStackTrace();
+	        throw e;
 	      }
 }
 
 //Receive and Object over the Wire
-public static Object receiveSignal(Socket socket) throws RuntimeException{
+public static Object receiveSignal(Socket socket) throws RuntimeException, IOException{
     if (socket == null) {
       throw new RuntimeException("Invalid Socket.");
     }
@@ -46,6 +47,7 @@ public static Object receiveSignal(Socket socket) throws RuntimeException{
     catch (IOException e) 
     {
       e.printStackTrace();
+      throw e;
     } 
     catch (ClassNotFoundException e) 
     {

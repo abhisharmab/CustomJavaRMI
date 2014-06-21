@@ -43,7 +43,7 @@ public class ProxyDispatcher implements Runnable {
 		// TODO Auto-generated method stub
 		
 		// open connection to the RMI registry
-		// register object close the connectionsvs
+		// register object close the connection
 		
 		
 		ServerSocket dispatcherListener = null;
@@ -168,10 +168,10 @@ public class ProxyDispatcher implements Runnable {
 
 			// Bind AddSubtract
 			if(socket != null){
-				RemoteRef addSubtract_ref = initialize_RemoteRef(new AddandSubtract());
-				getActualObjects().put(addSubtract_ref.getRegister_Name(), addSubtract_ref);
-				BindSignal bindSignal = generate_BindSignal(addSubtract_ref);
-				HelperUtility.sendSignal(socket, bindSignal);
+				AddandSubtract addandSubtract = new AddandSubtract();
+				RemoteRef addSubtract_ref = initialize_RemoteRef(addandSubtract);
+				getActualObjects().put(addSubtract_ref.getRegister_Name(), addandSubtract);
+				HelperUtility.sendSignal(socket, new BindSignal(addSubtract_ref));
 				Object object = HelperUtility.receiveSignal(socket);
 				
 				if( object instanceof AckSignal){
@@ -189,77 +189,8 @@ public class ProxyDispatcher implements Runnable {
 			}
 				
 			
-
-			
-			socket = intialize_socket();
-			// TODO : THIS SHOULD BE UPDATED 
-			
-			if( socket != null){
-				RemoteRef addSubtract_ref1 = initialize_RemoteRef(new AddandSubtract());
-				addSubtract_ref1.setRegister_Name("testing");
-				BindSignal bindSignal1 = generate_BindSignal(addSubtract_ref1);
-				HelperUtility.sendSignal(socket, bindSignal1);
-				Object object1 = HelperUtility.receiveSignal(socket);
-				
-				if( object1 instanceof AckSignal){
-					System.out.println("AddandSubtract binded.      2");
-				} else if (object1 instanceof RemoteExceptionSignal){
-					RemoteExceptionSignal exception = (RemoteExceptionSignal) object1;
-					System.out.println("Binding Failed : " + exception.getExpection());
-				}
-				
-				try {
-					socket.close();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				
-			}
-
-			
-			
-			socket = intialize_socket();
-			// TODO : THIS SHOULD BE UPDATED 
-			
-			if( socket != null){
-				HelperUtility.sendSignal(socket, new LookupSignal(new String("testingd")));
-				Object object2 = HelperUtility.receiveSignal(socket);
-				
-				if( object2 instanceof AckLookupSignal){
-					System.out.println("Lookup Signal");
-					AckLookupSignal signal = (AckLookupSignal)object2;
-					RemoteRef ref = signal.getRemote_Ref();
-					System.out.println(ref.getClass_Name());
-					System.out.println(ref.getIp_Address());
-					System.out.println(ref.getRegister_Name());
-					
-				} else if (object2 instanceof RemoteExceptionSignal){
-					RemoteExceptionSignal exception = (RemoteExceptionSignal) object2;
-					System.out.println("Look up failed : " + exception.getExpection());
-				}
-				
-				try {
-					socket.close();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				
-			}
-			
-			
-			
-			
-			
 		}
 		
-		private BindSignal generate_BindSignal(RemoteRef remote_ref){
-			BindSignal blind = new BindSignal();
-			blind.setRemote_Ref(remote_ref);
-			return blind;
-			
-		}
 		private RemoteRef initialize_RemoteRef(Object object){
 			
 			RemoteRef remoteRegObject = new RemoteRef();
