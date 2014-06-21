@@ -78,7 +78,7 @@ public  class ProxyStubCompiler {
 
 			HelperUtility.sendSignal(clientSideSocket, lookupSignal);
 
-			//TO-DO put a timer and wait only for sometime 
+			
 			BaseSignal baseSignal = (BaseSignal) HelperUtility.receiveSignal(clientSideSocket);
 
 			if(baseSignal.signalType==SignalType.Ack_Lookup) 
