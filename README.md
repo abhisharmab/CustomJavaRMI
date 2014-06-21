@@ -2,4 +2,4 @@ CustomJavaRMI
 =============
 
 CustomRMI
-This project is an implementation of RMI (Remote Method Invocation) from the scratch. 
+This project a framework for Remote Method Invocation (like Java RMI) from sctratch with the Runtime Stub Compiler. 
