@@ -156,7 +156,7 @@ public class ProxyDispatcher implements Runnable {
 				System.out.println("UnknownHost, please recheck the Rmi Registry Ip and Port number.");
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+				System.out.println("Connection error please recheck on the RMI Registry.");
 			}
 			
 			return null;
@@ -207,6 +207,8 @@ public class ProxyDispatcher implements Runnable {
 					e1.printStackTrace();
 				}
 				
+			} else {
+				System.out.println("Remote Reference object has not been bind.");
 			}
 				
 			
