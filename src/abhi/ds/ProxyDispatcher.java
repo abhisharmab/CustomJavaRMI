@@ -171,7 +171,7 @@ public class ProxyDispatcher implements Runnable {
 				try {
 					AddandSubtract addandSubtract = new AddandSubtract();
 					RemoteRef addSubtract_ref = initialize_RemoteRef(addandSubtract);
-					getActualObjects().put(addSubtract_ref.getRegister_Name(), addandSubtract);
+					getActualObjects().put(addSubtract_ref.getClass_Name(), addandSubtract);
 					
 					HelperUtility.sendSignal(socket, new BindSignal(addSubtract_ref));
 					Object object = HelperUtility.receiveSignal(socket);

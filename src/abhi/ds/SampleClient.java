@@ -18,7 +18,7 @@ public class SampleClient {
 		}
 		
 		String registryIpAddr = args[0].trim();
-		int registryPort = Integer.parseInt(args[0].trim());
+		int registryPort = Integer.parseInt(args[1].trim());
 
 		IAddandSubtract addSubtractObject;
 		try 
