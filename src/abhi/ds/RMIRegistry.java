@@ -60,27 +60,25 @@ public class RMIRegistry implements Runnable {
 	    
 	    	rmiListener = new ServerSocket(this.registryPortNumber);
 	      /* get a new request and start a new handler thread */
-	      while (true) {
-	        Socket requestSocket = rmiListener.accept();
-	        
-	        new Thread(new RMIRegisterRequestHandler(requestSocket, this)).start();
-	      }
+	    	while (true) {
+	    		Socket requestSocket = rmiListener.accept();
+	    		new Thread(new RMIRegisterRequestHandler(requestSocket, this)).start();
+	      	}
 	    } catch (IOException e) {
-	      e.printStackTrace();
+	    	e.printStackTrace();
 	    } catch (IllegalArgumentException e) {
-	      e.printStackTrace();
+	    	e.printStackTrace();
 	    } catch (SecurityException e) {
-	      e.printStackTrace();
-	    } finally 
-	    {
-	     if(rmiListener != null)
-	     {
-	      try {
-	    	  rmiListener.close();
-	      } catch (IOException e) {
-	        e.printStackTrace();
-	      }
-	     }
+	    	e.printStackTrace();
+	    } finally {
+		     if(rmiListener != null)
+		     {
+		    	 try {
+		    		 rmiListener.close();
+		    	 } catch (IOException e) {
+		    		 e.printStackTrace();
+		    	 }
+		     }
 	    }
 	}
 	
@@ -105,15 +103,15 @@ public class RMIRegistry implements Runnable {
 	
 	public static void main(String[] args)
 	{
-		    if (args.length != 1) 
-		    {
-		   
-		      System.err.println("Usage: RMIRegistry <registry_port>");
-		      return;
-		    }
-		    
-		   Thread RMIRegistryThread =  new Thread(new RMIRegistry(Integer.parseInt(args[0])));
-		   RMIRegistryThread.start();
+		if (args.length != 1) 
+	    {
+	   
+	      System.err.println("Usage: RMIRegistry <registry_port>");
+	      return;
+	    }
+	    
+	   Thread RMIRegistryThread =  new Thread(new RMIRegistry(Integer.parseInt(args[0])));
+	   RMIRegistryThread.start();
 	}
 
 }

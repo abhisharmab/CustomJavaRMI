@@ -23,6 +23,7 @@ public class SampleClient {
 		IAddandSubtract addSubtractObject;
 		try 
 		{
+			System.out.println("Adding: 8 with 9.");
 			addSubtractObject = (IAddandSubtract) ProxyStubCompiler.giveStub("IAddandSubtract", IAddandSubtract.class, registryIpAddr, registryPort);
 			int sum = addSubtractObject.Add(8, 9);
 			System.out.println(sum);

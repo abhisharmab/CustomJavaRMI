@@ -15,13 +15,9 @@ public class InvokeMethodSignal extends BaseSignal {
 	private static final long serialVersionUID = 1L;
 
 	private String className; 
-	
 	private String methodName;
-	
 	private String returnType;
-	
 	private Object[] arguments;
-	
 	private Class classinContext;
 	
 	

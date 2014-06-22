@@ -18,9 +18,7 @@ public class InvocationResponseMessage extends BaseSignal {
 	private boolean isException;
 	private String exceptionMessage;
 
-	//Exception Occurred..Then send the Exception Message
 	public InvocationResponseMessage(boolean exception, String message) {
-		// TODO Auto-generated constructor stub
 		this.setException(isException);
 		this.setExceptionMessage(message);
 		this.signalType = SignalType.InvocationResponse;
