@@ -25,6 +25,7 @@ public class SampleClient {
 		{
 			addSubtractObject = (IAddandSubtract) ProxyStubCompiler.giveStub("IAddandSubtract", IAddandSubtract.class, registryIpAddr, registryPort);
 			int sum = addSubtractObject.Add(8, 9);
+			System.out.println(sum);
 		}
 		catch (Exception e) 
 		{

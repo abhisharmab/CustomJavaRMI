@@ -32,7 +32,7 @@ public class StubHandler implements InvocationHandler {
 		// TODO Auto-generated method stub
 		Socket clientSocket = null;
 		
-		InvokeMethodSignal invokeSignal = new InvokeMethodSignal(remoteRef.getClass_Name(), method.getName(), method.getReturnType().getName(), args);
+		InvokeMethodSignal invokeSignal = new InvokeMethodSignal(remoteRef.getClass_Name(), method.getName(), method.getReturnType().getName(), args, method.getDeclaringClass());
 		
 		try
 		{

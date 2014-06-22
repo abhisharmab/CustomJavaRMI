@@ -81,11 +81,12 @@ public class ProxyDispatcherRequestHandler implements Runnable {
 				if(actualObject!=null)
 				{
 					try {
-						Class<?> actualClass = Class.forName(imSignal.getClassName());
+						Class<?> actualClass = imSignal.getClassinContext();
+						
 						
 				        Class<?>[] argstype = new Class[imSignal.getArguments().length];
 				        for (int i = 0; i < imSignal.getArguments().length; i++) {
-				          argstype[i] =imSignal.getArguments()[i].getClass();
+				          argstype[i] = imSignal.getArguments()[i].getClass();
 				        }
 				        
 				        Method requestedMethod = actualClass.getMethod(imSignal.getMethodName(), argstype);
@@ -108,18 +109,6 @@ public class ProxyDispatcherRequestHandler implements Runnable {
 							}
 						}
 						
-					} catch (ClassNotFoundException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-						 try 
-						 {
-							new ObjectOutputStream(this.requestSocket.getOutputStream()).writeObject(new InvocationResponseMessage(true,"Invalid ClassName"));
-						 } 
-						 catch (IOException e1) 
-						 {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
-						}
 					} catch (NoSuchMethodException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();

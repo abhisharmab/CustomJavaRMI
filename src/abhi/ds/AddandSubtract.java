@@ -10,13 +10,13 @@ package abhi.ds;
 public class AddandSubtract implements IAddandSubtract, IDistributedObject {
 
 	@Override
-	public synchronized Integer Add(int x, int y) {
+	public Integer Add(Integer x, Integer y) {
 		// TODO Auto-generated method stub
 		return new Integer(x+y);
 	}
 
 	@Override
-	public synchronized Integer Subtract(int a, int b) {
+	public Integer Subtract(Integer a, Integer b) {
 		// TODO Auto-generated method stub
 		return new Integer(a-b);
 	}

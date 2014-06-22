@@ -22,16 +22,29 @@ public class InvokeMethodSignal extends BaseSignal {
 	
 	private Object[] arguments;
 	
+	private Class classinContext;
 	
-	public InvokeMethodSignal(String className, String methodName, String returnType, Object[] arguments)
+	
+	public InvokeMethodSignal(String className, String methodName, String returnType, Object[] arguments, Class classContext)
 	{
 		this.className = className;
 		this.methodName = methodName;
 		this.returnType = returnType;
 		this.arguments = arguments;
+		this.classinContext = classContext;
 		this.signalType = SignalType.Invoke;
 	}
+	
+	
+	public void setClassinContext(Class classinContext)
+	{
+		this.classinContext = classinContext;
+	}
 
+	public Class getClassinContext()
+	{
+		return this.classinContext;
+	}
 	/**
 	 * @return the className
 	 */

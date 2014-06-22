@@ -9,7 +9,7 @@ package abhi.ds;
  */
 public interface IAddandSubtract {
 
-	public Integer Add(int x, int y);
+	public Integer Add(Integer x, Integer y);
 	
-	public Integer Subtract(int a, int b);
+	public Integer Subtract(Integer a, Integer b);
 }
