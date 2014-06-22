@@ -45,7 +45,17 @@ public class StubHandler implements InvocationHandler {
 			if(baseSignal.getSignalType() == SignalType.InvocationResponse)
 			{
 				InvocationResponseMessage responseMsg = (InvocationResponseMessage) baseSignal;
-				return responseMsg.getReturnObject();
+				
+				if(responseMsg.getReturnObject() == null)
+					throw new Exception("Sever returned NULL. Request un-successful");
+				
+				if(responseMsg.isException())
+					return new Exception(responseMsg.getExceptionMessage());
+				
+				else
+				{
+					return responseMsg.getReturnObject();
+				}
 			}
 			else 
 			{
