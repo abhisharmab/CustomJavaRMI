@@ -3,6 +3,7 @@
  */
 package abhi.ds;
 
+import java.io.EOFException;
 import java.io.IOException;
 import java.lang.reflect.*;
 import java.lang.reflect.Proxy;
@@ -43,8 +44,6 @@ public  class ProxyStubCompiler {
 			} 
 			catch (Exception e) 
 			{
-				// TODO Auto-generated catch block
-				e.printStackTrace();
 				throw e;
 			}
 			
@@ -71,15 +70,15 @@ public  class ProxyStubCompiler {
 	{
 		LookupSignal lookupSignal = new LookupSignal(interfaceName);
 		
-		Socket clientSideSocket = null;
+		Socket rmiRegisterySocket = null;
 		try 
 		{
-			clientSideSocket = new Socket(registryIp, registryPort);
+			rmiRegisterySocket = new Socket(registryIp, registryPort);
 
-			HelperUtility.sendSignal(clientSideSocket, lookupSignal);
+			HelperUtility.sendSignal(rmiRegisterySocket, lookupSignal);
 
 			
-			BaseSignal baseSignal = (BaseSignal) HelperUtility.receiveSignal(clientSideSocket);
+			BaseSignal baseSignal = (BaseSignal) HelperUtility.receiveSignal(rmiRegisterySocket);
 
 			if(baseSignal.signalType==SignalType.Ack_Lookup) 
 			{
@@ -92,25 +91,26 @@ public  class ProxyStubCompiler {
 				throw new Exception("No/Bad Response from RMIRegistry");
 			}
 		}
-		catch (UnknownHostException e) 
+		catch (UnknownHostException | ConnectException e) 
 		{
-		      e.printStackTrace();
+			System.out.println("Error while connecting to the RMI registry.");
+			System.out.println("Please check the RMI registry IP and the Port number.");
 		} 
 		catch (IOException e) 
 		{
-		     e.printStackTrace();
-		      
-		      //TO-DO when this exception comes in I need to go and re-try to get the a new lookup object
-		    } finally {
-		      if (clientSideSocket != null) {
-		        try 
-		        {
-		        	clientSideSocket.close();
-		        } catch (IOException e) {
-		          e.printStackTrace();
-		        }
-		      }
-		    }
+			throw new Exception("No/Bad Connection.");
+	    }
+		finally 
+		{
+	      if (rmiRegisterySocket != null) {
+	        try 
+	        {
+	        	rmiRegisterySocket.close();
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	        }
+	      }
+	    }
 
 		return null;
 	 }

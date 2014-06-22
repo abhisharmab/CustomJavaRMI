@@ -30,6 +30,7 @@ public class SampleClient {
 		catch (Exception e) 
 		{
 			// TODO Auto-generated catch block
+			System.err.println();
 			System.err.println(e.getMessage());
 		}
 

@@ -38,7 +38,7 @@ public class RMIRegisterRequestHandler implements Runnable {
 		//@Doug: So we need those 2 kinds of Signals
 
 		if(requestSocket.isConnected()){
-			System.out.println("RMI : Executing the request");
+			
 			ObjectInputStream sockIn;
 				try {
 					sockIn = new ObjectInputStream(requestSocket.getInputStream());
@@ -46,12 +46,15 @@ public class RMIRegisterRequestHandler implements Runnable {
 					baseSignal = (BaseSignal) sockIn.readObject();
 					switch (baseSignal.getSignalType()) {
 						case Bind:
+							System.out.println("RMI : Executing the Bind request");
 							bind((BindSignal) baseSignal);
 							break;
 						case Rebind:
+							System.out.println("RMI : Executing the rebind request");
 							rebind((RebindSignal) baseSignal);
 							break;
 						case LookUp:
+							System.out.println("RMI : Executing the Lookup request");
 							lookup((LookupSignal) baseSignal);
 							break;
 						default:

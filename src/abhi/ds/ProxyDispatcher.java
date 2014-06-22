@@ -52,7 +52,10 @@ public class ProxyDispatcher implements Runnable {
 			try
 			{
 				dispatcherListener = new ServerSocket(this.dispatcherPortNumber);
-
+				setDispatcherIpAddress(InetAddress.getLocalHost().getCanonicalHostName());
+				System.out.println("Proxy Dispatcher");
+				System.out.println("Address : " +getDispatcherIpAddress());
+				System.out.println("Port : " + getDispatcherPortNumber());
 				while(true)
 				{
 					Socket requestSocket = dispatcherListener.accept();
@@ -66,7 +69,8 @@ public class ProxyDispatcher implements Runnable {
 			}
 			catch(IOException e)
 			{
-				System.out.println("Error occured while opening the Server Socker, please use a differenet portnumber. ");
+				System.out.println("Error occured while opening the Server Socker for the proxy server.");
+				System.out.println("Please use a differenet portnumber. ");
 				
 			}
 			

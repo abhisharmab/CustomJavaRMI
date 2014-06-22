@@ -46,7 +46,8 @@ public static Object receiveSignal(Socket socket) throws RuntimeException, IOExc
     } 
     catch (IOException e) 
     {
-      e.printStackTrace();
+      System.out.println("Error while Receiving Signal.");
+      System.out.println("Please check the connection information and try again.");
       throw e;
     } 
     catch (ClassNotFoundException e) 
