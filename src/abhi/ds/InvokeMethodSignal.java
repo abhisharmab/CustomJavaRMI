@@ -1,12 +1,17 @@
 /**
  * 
  */
-package abhi.ds;
+package abhi.utility;
 
 /**
- * @author abhisheksharma
- *
+ * @author abhisheksharma, dkrew
  */
+ // The Invoke Method captures all the information that is send from the Client Side to the server 
+ // The invoke signal contains all the information like the Method Name, Parameters, Implementing Class Interface and the 
+//  Expected returntype. 
+
+// The client packages all this information and send this to server for remote method invocation.
+ 
 public class InvokeMethodSignal extends BaseSignal {
 	
 	/**
@@ -19,6 +24,7 @@ public class InvokeMethodSignal extends BaseSignal {
 	private String returnType;
 	private Object[] arguments;
 	private Class classinContext;
+
 	
 	
 	public InvokeMethodSignal(String className, String methodName, String returnType, Object[] arguments, Class classContext)
@@ -31,7 +37,7 @@ public class InvokeMethodSignal extends BaseSignal {
 		this.signalType = SignalType.Invoke;
 	}
 	
-	
+	//The Class we are talking about for this method.
 	public void setClassinContext(Class classinContext)
 	{
 		this.classinContext = classinContext;

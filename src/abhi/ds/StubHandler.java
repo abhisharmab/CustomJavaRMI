@@ -1,7 +1,7 @@
 /**
  * 
  */
-package abhi.ds;
+package abhi.client;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationHandler;
@@ -9,11 +9,17 @@ import java.lang.reflect.Method;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
-import abhi.ds.BaseSignal.SignalType;
+import abhi.utility.*;
+import abhi.utility.BaseSignal.SignalType;
 
 /**
- * @author abhisheksharma
- *
+ * @author abhisheksharma, dkrew
+ * STUBHANDLER is the common handler class that Handles the relaying of messages to the server-side for calling the Remote Temperature. 
+ * Each time a method is called upon the STUB object all the meta-data is package and the 
+ * "INVOKE" method of this handler is called. 
+ * 
+ * StubHandler packages the data into a InvokeMethodSignal with the method name, parameters and marhsalls all this info to the server. 
+ * Waits for the repsonse from the server and unpacks the information (exception or results) and carefully passes it to the client.
  */
 public class StubHandler implements InvocationHandler {
 
@@ -36,22 +42,28 @@ public class StubHandler implements InvocationHandler {
 		
 		try
 		{
+			// Connecting to the server
 			clientSocket = new Socket(remoteRef.getIp_Address(), remoteRef.getPort());
 			
+			// packing signal and sending it
 			HelperUtility.sendSignal(clientSocket, invokeSignal);
 			
+			// Receive signal back from client
 			BaseSignal baseSignal = (BaseSignal) HelperUtility.receiveSignal(clientSocket);
 			
 			if(baseSignal.getSignalType() == SignalType.InvocationResponse)
 			{
-				InvocationResponseMessage responseMsg = (InvocationResponseMessage) baseSignal;
+				InvocationResponseSignal responseMsg = (InvocationResponseSignal) baseSignal;
 				
+				//Check if there was any Exception
 				if(responseMsg.getReturnObject() == null)
 					throw new Exception("Sever returned NULL. Request un-successful");
 				
+				//Check if there was any Exception
 				if(responseMsg.isException())
 					return new Exception(responseMsg.getExceptionMessage());
 				
+				//Successfully execution; return result to the client.
 				else
 				{
 					return responseMsg.getReturnObject();
@@ -65,13 +77,12 @@ public class StubHandler implements InvocationHandler {
 		}
 		catch (UnknownHostException e) 
 		{
-		      e.printStackTrace();
+		      throw new Exception("Could not connect to the Server. Server might be dead or please try again");
 		} 
 		catch (IOException e) 
 		{
-		     e.printStackTrace();
-		      
-		      //TO-DO when this exception comes in I need to go and re-try to get the a new lookup object
+		     throw new Exception("Error occured on the socket. I/O stream could not be established or accessed");
+
 		    } 
 		finally {
 		      if (clientSocket != null) {
@@ -79,13 +90,10 @@ public class StubHandler implements InvocationHandler {
 		        {
 		        	clientSocket.close();
 		        } catch (IOException e) {
-		          e.printStackTrace();
+		        	throw new Exception("Could not close socket connection with the Server");
 		        }
 		      }
 		    }
-
-	
-		return null;
 	}
 
 }

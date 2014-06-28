@@ -1,16 +1,15 @@
 /**
  * 
  */
-package abhi.ds;
+package abhi.utility;
 
 import java.util.ArrayList;
 
 
 /**
  * @author abhisheksharma, dkrew0213
- *This class encapsulated the remote REFERENCE> 
- *Which is nothing but the MetaData about the remote Object. This meta-data will be used to basiclaly  create the STUB.
- *This meta is also pretty much registered in the registry
+ *This is the Acknowledgement signal from the Registry for the BIND and ReBind request from the Server. 
+ *The registry sends this signal to let the server know that it could take the remote ref and it put it in its map.
  */
 public class AckSignal extends BaseSignal{
 	

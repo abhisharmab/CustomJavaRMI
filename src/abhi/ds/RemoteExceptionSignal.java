@@ -1,16 +1,16 @@
 /**
  * 
  */
-package abhi.ds;
+package abhi.utility;
 
 import java.util.ArrayList;
 
 
 /**
  * @author abhisheksharma, dkrew0213
- *This class encapsulated the remote REFERENCE> 
- *Which is nothing but the MetaData about the remote Object. This meta-data will be used to basiclaly  create the STUB.
- *This meta is also pretty much registered in the registry
+ *
+ *This class is a GENERIC class for capturing all the Exception Messages.
+ *On occurance of an Exception this message is passed around. 
  */
 public class RemoteExceptionSignal extends BaseSignal{
 	
@@ -22,9 +22,10 @@ public class RemoteExceptionSignal extends BaseSignal{
 		setSignalType(SignalType.Exception);
 	}
 
+	//Exception of the message of whatever failed.
 	public RemoteExceptionSignal(String e){
 		setSignalType(SignalType.Exception);
-		setExpection(e);
+		setExpection(e); 
 	}
 	
 	public String getExpection() {

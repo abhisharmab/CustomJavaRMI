@@ -1,21 +1,23 @@
 /**
  * 
  */
-package abhi.ds;
+package abhi.utility;
 
 import java.util.ArrayList;
 
 
 /**
  * @author abhisheksharma, dkrew0213
- *This class encapsulated the Remote REFERENCE> 
- *Which is nothing but the MetaData about the Remote Object. This meta-data will be used to basiclaly  create the STUB.
- *This meta is also pretty much registered in the registry
+ * 
+ * Inherently this is pretty much just like the BIND SIgnal but we needed another signal to identigy this si re-bind signa;
+ * This is used if the server goes down maybe comes back up but now it mayabe running services on another port. 
+ * So all the remote-ref information must be sent to the RMIRegistry again so that it can updates it copy of RemoteRef for Clients.
  */
 public class RebindSignal extends BaseSignal{
 	
 	private static final long serialVersionUID = 1L;
 	
+	//RemoteREf Object to be Stored on the RMIRegistry Side.
 	private RemoteRef remote_Ref;
 	
 	public RebindSignal(){

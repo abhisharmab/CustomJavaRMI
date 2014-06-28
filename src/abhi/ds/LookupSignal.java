@@ -1,16 +1,16 @@
 /**
  * 
  */
-package abhi.ds;
+package abhi.utility;
 
 import java.util.ArrayList;
 
 
 /**
  * @author abhisheksharma, dkrew0213
- *This class encapsulated the Remote REFERENCE> 
- *Which is nothing but the MetaData about the Remote Object. This meta-data will be used to basiclaly  create the STUB.
- *This meta is also pretty much registered in the registry
+ * This is signal that is sent from Client to the Server
+ * It captures lookup name information that is needed on the server-side to lookup from the HashMap on the serverside 
+ * the lookup name sent by the client is matched against the key on the Hash-Map on the serverside to find the RemoteRef Object.
  */
 public class LookupSignal extends BaseSignal{
 	

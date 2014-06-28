@@ -1,7 +1,7 @@
 /**
  * 
  */
-package abhi.ds;
+package abhi.utility;
 
 import java.util.ArrayList;
 
@@ -9,8 +9,9 @@ import java.util.ArrayList;
 /**
  * @author abhisheksharma, dkrew0213
  *This class encapsulated the remote REFERENCE> 
- *Which is nothing but the MetaData about the remote Object. This meta-data will be used to basiclaly  create the STUB.
+ *Which is nothing but the MetaData about the remote Object. 
  *This meta is also pretty much registered in the registry
+ *This Bind Signal is sent by the server to the RMI Registru.
  */
 public class BindSignal extends BaseSignal{
 	
@@ -28,6 +29,7 @@ public class BindSignal extends BaseSignal{
 		setRemote_Ref(ref);
 	}
 
+	//Package Remote Ref in the Bind Signal
 	public RemoteRef getRemote_Ref() {
 		return remote_Ref;
 	}

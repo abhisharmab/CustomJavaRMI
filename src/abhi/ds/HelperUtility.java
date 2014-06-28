@@ -1,9 +1,6 @@
-package abhi.ds;
+package abhi.utility;
 
-/* Helper Utility Class hold Systemic constants and Common utility functions that will be used by all other things in the system
- * The sendSignal method is used both by the Process manager and the Worker to establish the Socket Connection with the server socket on the other end
- * and send its messages to them.
- * */
+
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -12,7 +9,9 @@ import java.net.Socket;
 
 public class HelperUtility {
 	
+// Helper Utility Class hold Systemic constants and Common utility functions that will be used by all other things in the system
 
+	
 //Send an object over the Wire	
 public static void sendSignal(Socket socket, Object object) throws RuntimeException, IOException
 {

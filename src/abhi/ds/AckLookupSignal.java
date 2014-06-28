@@ -1,16 +1,17 @@
 /**
  * 
  */
-package abhi.ds;
+package abhi.utility;
 
 import java.util.ArrayList;
 
 
 /**
- * @author abhisheksharma, dkrew0213asvasvs
+ * @author abhisheksharma, dkrew0213
  *This class encapsulated the Remote REFERENCE> 
  *Which is nothing but the MetaData about the Remote Object. This meta-data will be used to basiclaly  create the STUB.
  *This meta is also pretty much registered in the registry
+ *This is Acknowledgement Signal for the LookUp request from the Client.
  */
 public class AckLookupSignal extends BaseSignal{
 	

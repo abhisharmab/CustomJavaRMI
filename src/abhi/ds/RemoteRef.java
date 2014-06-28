@@ -1,27 +1,29 @@
 /**
  * 
  */
-package abhi.ds;
+package abhi.utility;
 
 import java.util.ArrayList;
 
 /**
  * @author abhisheksharma, dkrew0213
  *This class encapsulated the Remote REFERENCE> 
- *Which is nothing but the MetaData about the Remote Object. This meta-data will be used to basiclaly  create the STUB.
- *This meta is also pretty much registered in the registry
+ *Which is nothing but the MetaData about the Remote Object. 
  */
+
+//RemoteRef is the meta-data about the Remotely Callable Objects.
+
 public class RemoteRef implements ISignal{
 	
 	private static final long serialVersionUID = 1L;
 	
 	private String ip_Address;
 	private Integer port;
-	 //private String interface_Name; // We don't need this. because I added the class [] param.
+
 	private String class_Name;
-	private Class[] implementedInterfaces = null; //I need this becuase its an input parameter for the Proxy. 
+	private Class[] implementedInterfaces = null;
 	
-	private String register_Name;
+	private String register_Name; //This wil the lookup name as well for the clients to lookup names as well.
 	
 	public Class[] getInterfaces() {
 		return implementedInterfaces;
