@@ -1,7 +1,7 @@
 /**
  * 
  */
-package abhi.utility;
+package abhi.ds;
 
 import java.util.ArrayList;
 

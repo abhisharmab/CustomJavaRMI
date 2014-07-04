@@ -1,4 +1,4 @@
-package abhi.utility;
+package abhi.ds;
 
 import java.io.Serializable;
 

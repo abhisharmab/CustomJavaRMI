@@ -1,7 +1,7 @@
 /**
  * 
  */
-package abhi.registry;
+package abhi.ds;
 
 
 import java.io.EOFException;
@@ -9,8 +9,8 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.net.*;
 import java.util.*;
-import abhi.utility.*;
-import abhi.utility.BaseSignal.SignalType;
+
+import abhi.ds.BaseSignal.SignalType;
 
 
 /**

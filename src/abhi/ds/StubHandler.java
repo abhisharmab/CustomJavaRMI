@@ -1,7 +1,7 @@
 /**
  * 
  */
-package abhi.client;
+package abhi.ds;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationHandler;
@@ -9,8 +9,7 @@ import java.lang.reflect.Method;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
-import abhi.utility.*;
-import abhi.utility.BaseSignal.SignalType;
+import abhi.ds.BaseSignal.SignalType;
 
 /**
  * @author abhisheksharma, dkrew

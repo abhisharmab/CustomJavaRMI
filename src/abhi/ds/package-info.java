@@ -5,4 +5,4 @@
  * @author abhisheksharma
  *
  */
-package abhi.utility;
+package abhi.ds;

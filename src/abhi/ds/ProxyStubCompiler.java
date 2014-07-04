@@ -1,19 +1,17 @@
 /**
  * 
  */
-package abhi.client;
+package abhi.ds;
 
 
 import java.io.EOFException;
-
-import abhi.utility.*;
-import abhi.utility.BaseSignal.SignalType;
-
 import java.io.IOException;
 import java.lang.reflect.*;
 import java.lang.reflect.Proxy;
 import java.net.*;
 import java.util.*;
+
+import abhi.ds.BaseSignal.SignalType;
 
 /**
  * @author abhisheksharma, dkrew

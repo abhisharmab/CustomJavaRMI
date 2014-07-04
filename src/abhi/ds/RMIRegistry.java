@@ -1,4 +1,4 @@
-package abhi.registry;
+package abhi.ds;
 
 import java.io.IOException;
 import java.net.InetAddress;
@@ -8,8 +8,8 @@ import java.net.UnknownHostException;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
-import abhi.utility.*;
-import abhi.utility.BaseSignal.SignalType;
+
+import abhi.ds.BaseSignal.SignalType;
 
 /**
  * @author abhisheksharma, dkrew0213

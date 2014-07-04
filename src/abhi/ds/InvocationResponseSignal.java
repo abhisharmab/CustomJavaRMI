@@ -1,7 +1,7 @@
 /**
  * 
  */
-package abhi.utility;
+package abhi.ds;
 
 /**
  * @author abhisheksharma
